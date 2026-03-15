@@ -11,7 +11,6 @@ class ScraperService {
   /// Fetches and parses Attendance data.
   Future<List<AttendanceModel>> getAttendance() async {
     try {
-      // TODO: VERIFY URL
       const String url = 'https://academia.srmist.edu.in/viewAttendance';
       final response = await _dio.get(url);
 
@@ -19,7 +18,6 @@ class ScraperService {
         if (kDebugMode) print("Scraping Attendance: SUCCESS (200)");
         
         final document = parse(response.data);
-        // Try multiple selectors just in case
         var rows = document.querySelectorAll('table#attendanceTable tr').skip(1);
         if (rows.isEmpty) {
           rows = document.querySelectorAll('table tr').where((element) => element.text.contains('%')).skip(0);
@@ -28,15 +26,12 @@ class ScraperService {
           rows = document.querySelectorAll('tr').skip(1);
         }
         
-        if (kDebugMode) print("Found ${rows.length} candidate rows in attendance");
-        
         List<AttendanceModel> attendanceList = [];
-        
         for (var row in rows) {
           final cols = row.querySelectorAll('td');
           if (cols.length >= 5) {
             attendanceList.add(AttendanceModel(
-              subjectCode: cols[0].text.trim(), // TODO: VERIFY COLUMN INDEX
+              subjectCode: cols[0].text.trim(),
               subjectName: cols[1].text.trim(),
               attended: int.tryParse(cols[2].text.trim()) ?? 0,
               total: int.tryParse(cols[3].text.trim()) ?? 0,
@@ -56,14 +51,11 @@ class ScraperService {
   /// Fetches and parses Marks data.
   Future<List<MarksModel>> getMarks() async {
     try {
-      // TODO: VERIFY URL
       const String url = 'https://academia.srmist.edu.in/viewMarks';
       final response = await _dio.get(url);
 
       if (response.statusCode == 200) {
         final document = parse(response.data);
-        
-        // TODO: VERIFY TABLE SELECTOR
         final rows = document.querySelectorAll('table tr').skip(1);
         
         List<MarksModel> marksList = [];
@@ -92,14 +84,11 @@ class ScraperService {
   /// Fetches and parses Timetable data.
   Future<List<TimetableModel>> getTimetable() async {
     try {
-      // TODO: VERIFY URL
       const String url = 'https://academia.srmist.edu.in/viewTimetable';
       final response = await _dio.get(url);
 
       if (response.statusCode == 200) {
         final document = parse(response.data);
-        
-        // TODO: VERIFY TABLE SELECTOR
         final rows = document.querySelectorAll('table tr').skip(1);
         
         List<TimetableModel> timetableList = [];
@@ -123,11 +112,5 @@ class ScraperService {
       if (e is AppException) rethrow;
       throw ScrapingException("Error parsing timetable: ${e.toString()}");
     }
-  }
-
-  /// Fetches detailed attendance for a specific subject.
-  /// This usually requires clicking a link or a specific POST request with subject details.
-  Future<void> getDetailedAttendance(String subjectCode) async {
-     // TODO: Implement after user verifies the list view works.
   }
 }
