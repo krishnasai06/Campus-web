@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../services/storage_service.dart';
-import '../config/theme.dart';
 
 class CaptchaScreen extends StatefulWidget {
   const CaptchaScreen({super.key});

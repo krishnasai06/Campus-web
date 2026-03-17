@@ -173,7 +173,7 @@ class SettingsScreen extends StatelessWidget {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
         subtitle: subtitle != null
             ? Text(subtitle,
-                style: TextStyle(fontSize: 13, color: AppTheme.slate500))
+                style: const TextStyle(fontSize: 13, color: AppTheme.slate500))
             : null,
         trailing: trailing,
         onTap: onTap,

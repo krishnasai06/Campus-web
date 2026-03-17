@@ -64,7 +64,7 @@ class MarksScreen extends StatelessWidget {
                                 Text(s, style: const TextStyle(fontSize: 14))))
                         .toList(),
                     onChanged: (v) {},
-                    icon: Icon(Icons.unfold_more, color: AppTheme.slate400),
+                    icon: const Icon(Icons.unfold_more, color: AppTheme.slate400),
                   ),
                 ),
               ),
@@ -165,7 +165,7 @@ class MarksScreen extends StatelessWidget {
                     _getGradeColor(item.grade),
                     isDark,
                   );
-                }).toList(),
+                }),
             ],
           ),
         ),

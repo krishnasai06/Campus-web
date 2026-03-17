@@ -110,7 +110,6 @@ class TimetableScreen extends StatelessWidget {
     required String room,
     required String faculty,
     bool isNow = false,
-    bool isNext = false,
     bool isLast = false,
     required bool isDark,
   }) {
